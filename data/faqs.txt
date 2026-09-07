@@ -1,0 +1,113 @@
+Q: What is SafeX?
+A: SafeX is an online technology retailer that sells laptops, phones, accessories, and smart-home products.
+
+Q: How can I contact SafeX customer support?
+A: Contact SafeX support at support@safex.example or call +1-800-555-0199 Monday through Friday from 9:00 AM to 5:00 PM Eastern Time.
+
+Q: How do I place an order?
+A: Add products to your cart, select Checkout, enter your delivery and payment details, and confirm the order.
+
+Q: Can I track my order?
+A: Yes. Use the tracking link in your shipping-confirmation email or sign in to your SafeX account and open Order History.
+
+Q: Can I change my order after placing it?
+A: Contact SafeX support as soon as possible. Changes are only possible before the order enters fulfillment.
+
+Q: Can I cancel my order?
+A: An order can be cancelled before it enters fulfillment. Contact support with your order number immediately.
+
+Q: What happens if my order is already being prepared?
+A: Orders already in fulfillment cannot normally be cancelled, but you may request a return after delivery under the return policy.
+
+Q: How long does standard shipping take?
+A: Standard shipping usually takes 3 to 5 business days after dispatch.
+
+Q: How long does express shipping take?
+A: Express shipping usually takes 1 to 2 business days after dispatch.
+
+Q: How long does order processing take?
+A: Orders are normally processed within 1 to 2 business days before dispatch.
+
+Q: How much does standard shipping cost?
+A: Standard shipping costs $5.99, and it is free for orders of $75 or more before tax.
+
+Q: How much does express shipping cost?
+A: Express shipping costs $14.99.
+
+Q: Does SafeX ship internationally?
+A: SafeX currently ships only within the United States and does not offer international shipping.
+
+Q: Where does SafeX deliver?
+A: SafeX delivers to valid residential and business addresses within the United States, excluding PO boxes for express orders.
+
+Q: What should I do if my package is late?
+A: Check the tracking link first. If the package is more than three business days late, contact SafeX support with your order number.
+
+Q: What should I do if tracking says delivered but I cannot find my package?
+A: Check nearby doors and ask household members or building staff. If it is still missing after 24 hours, contact the carrier and SafeX support.
+
+Q: Can I return a product?
+A: Most products can be returned within 30 calendar days of delivery if they are in like-new condition with all accessories and original packaging.
+
+Q: Are opened products returnable?
+A: Opened products may be returned within 30 days if they are complete and undamaged. Some hygiene products cannot be returned after opening.
+
+Q: Are sale items returnable?
+A: Sale items follow the same 30-day return policy unless the product page explicitly says final sale.
+
+Q: How do I start a return?
+A: Contact support@safex.example with your order number and reason for return. Support will provide return instructions.
+
+Q: Who pays return shipping?
+A: SafeX provides a prepaid return label for defective, damaged, or incorrectly shipped products. Other approved returns may require the customer to pay return shipping.
+
+Q: When will I receive my refund?
+A: After SafeX receives and inspects the return, refunds are issued within 5 to 7 business days. Your bank may take additional time to post the refund.
+
+Q: How are refunds issued?
+A: Refunds are sent to the original payment method used for the order.
+
+Q: Can I exchange a product?
+A: SafeX does not offer direct exchanges. Return the original item for a refund and place a new order.
+
+Q: What payment methods are accepted?
+A: SafeX accepts Visa, Mastercard, American Express, Discover, and PayPal.
+
+Q: Does SafeX accept cash on delivery?
+A: No. SafeX does not accept cash on delivery.
+
+Q: When is my card charged?
+A: Your payment method is normally authorized at checkout and charged when the order is confirmed.
+
+Q: Why was my payment declined?
+A: Check your card details, billing address, available funds, and card restrictions. Contact your bank or SafeX support if the issue continues.
+
+Q: Is my payment information secure?
+A: SafeX uses encrypted payment processing and does not store complete card numbers.
+
+Q: How do I create an account?
+A: Select Create Account, enter your email address and a password, and verify your email.
+
+Q: How do I reset my password?
+A: Select Forgot Password on the sign-in page, enter your account email, and follow the password-reset link.
+
+Q: What if I do not receive the password-reset email?
+A: Check your spam folder and confirm that you entered the correct email address. Contact support if the email does not arrive within 15 minutes.
+
+Q: Can I shop without an account?
+A: Yes. SafeX supports guest checkout, but an account makes order tracking and support easier.
+
+Q: How do I update my account details?
+A: Sign in, open Account Settings, edit your details, and save the changes.
+
+Q: Do SafeX products have a warranty?
+A: SafeX-branded products include a one-year limited warranty covering manufacturing defects under normal use.
+
+Q: What does the warranty exclude?
+A: The warranty excludes accidental damage, misuse, unauthorized repairs, normal wear, and cosmetic damage.
+
+Q: How do I make a warranty claim?
+A: Contact support with your order number, product serial number, and a description of the problem. Support will explain the next steps.
+
+Q: Can I get technical help with a product?
+A: Yes. Contact support@safex.example with the product name, order number, and a description of the issue.
