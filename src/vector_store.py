@@ -1,5 +1,7 @@
 from pathlib import Path
+import shutil
 
+from chromadb.errors import ChromaError
 from langchain_chroma import Chroma
 
 from src.document_loader import load_documents
@@ -8,6 +10,23 @@ from src.text_splitter import split_documents
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+COLLECTION_NAME = "safex_support"
+
+
+def _project_path(path: str | Path | None, default: Path) -> Path:
+    """Resolve relative paths from the project root, not the launch directory."""
+    candidate = Path(path) if path is not None else default
+    if not candidate.is_absolute():
+        candidate = PROJECT_ROOT / candidate
+    return candidate.resolve()
+
+
+def _remove_vector_store(persist_dir: Path) -> None:
+    """Remove only the configured Chroma directory before rebuilding it."""
+    if persist_dir.is_dir():
+        shutil.rmtree(persist_dir)
+    elif persist_dir.exists():
+        persist_dir.unlink()
 
 
 def build_vector_store(
@@ -19,10 +38,8 @@ def build_vector_store(
     and store them in ChromaDB.
     """
 
-    data_dir = Path(data_dir) if data_dir else PROJECT_ROOT / "data"
-    persist_dir = (
-        Path(persist_dir) if persist_dir else PROJECT_ROOT / "chroma_db"
-    )
+    data_dir = _project_path(data_dir, PROJECT_ROOT / "data")
+    persist_dir = _project_path(persist_dir, PROJECT_ROOT / "chroma_db")
 
     # Make sure the data directory exists
     if not data_dir.exists():
@@ -30,36 +47,41 @@ def build_vector_store(
             f"Knowledge base directory not found: {data_dir}"
         )
 
-    # Load documents
     documents = load_documents(data_dir)
-
-    # Split documents into chunks
     chunks = split_documents(documents)
-
-    # Check if documents produced chunks
     if not chunks:
         raise ValueError(
-            "The knowledge base produced no searchable chunks."
+            f"No searchable chunks were produced from knowledge base files in "
+            f"{data_dir}."
         )
 
-    print("Creating vector database...")
+    try:
+        embeddings = get_embeddings()
+    except (OSError, RuntimeError, ValueError) as error:
+        raise RuntimeError(
+            "Could not create embeddings for the knowledge base. "
+            "Check the embedding dependencies and network access."
+        ) from error
 
-    # Get embedding model
-    embeddings = get_embeddings()
+    try:
+        persist_dir.parent.mkdir(parents=True, exist_ok=True)
+        vector_store = Chroma.from_documents(
+            documents=chunks,
+            embedding=embeddings,
+            persist_directory=str(persist_dir),
+            collection_name=COLLECTION_NAME,
+        )
+        chunk_count = vector_store._collection.count()
+    except (ChromaError, OSError, RuntimeError, ValueError, TypeError) as error:
+        raise RuntimeError(
+            f"Could not initialize Chroma at {persist_dir}."
+        ) from error
 
-    # Create ChromaDB
-    vector_store = Chroma.from_documents(
-        documents=chunks,
-        embedding=embeddings,
-        persist_directory=str(persist_dir),
-        collection_name="safex_support",
-    )
-
-    print(
-        f"Vector database created successfully with "
-        f"{vector_store._collection.count()} chunks."
-    )
-
+    if chunk_count == 0:
+        raise RuntimeError(
+            f"Chroma initialized at {persist_dir}, but collection "
+            f"{COLLECTION_NAME!r} is empty."
+        )
     return vector_store
 
 
@@ -73,33 +95,50 @@ def get_vector_store(
     automatically create it.
     """
 
-    persist_dir = (
-        Path(persist_dir) if persist_dir else PROJECT_ROOT / "chroma_db"
-    )
+    persist_dir = _project_path(persist_dir, PROJECT_ROOT / "chroma_db")
 
-    # If vector database does not exist,
-    # automatically build it
     if not persist_dir.exists():
-        print(
-            "Vector database not found. "
-            "Creating it automatically..."
+        return build_vector_store(persist_dir=persist_dir)
+
+    try:
+        embeddings = get_embeddings()
+    except (OSError, RuntimeError, ValueError) as error:
+        raise RuntimeError(
+            "Could not create embeddings for the existing knowledge base. "
+            "Check the embedding dependencies and network access."
+        ) from error
+
+    try:
+        vector_store = Chroma(
+            persist_directory=str(persist_dir),
+            embedding_function=embeddings,
+            collection_name=COLLECTION_NAME,
         )
+        chunk_count = vector_store._collection.count()
+    except (ChromaError, OSError, RuntimeError, ValueError, TypeError) as error:
+        _remove_vector_store(persist_dir)
+        try:
+            return build_vector_store(persist_dir=persist_dir)
+        except (
+            ChromaError,
+            OSError,
+            RuntimeError,
+            ValueError,
+            TypeError,
+        ) as rebuild_error:
+            raise RuntimeError(
+                f"Could not load or rebuild the Chroma database at {persist_dir}."
+            ) from rebuild_error
 
-        return build_vector_store(
-            persist_dir=persist_dir
-        )
+    if chunk_count == 0:
+        _remove_vector_store(persist_dir)
+        return build_vector_store(persist_dir=persist_dir)
 
-    print("Loading existing vector database...")
-
-    return Chroma(
-        persist_directory=str(persist_dir),
-        embedding_function=get_embeddings(),
-        collection_name="safex_support",
-    )
+    return vector_store
 
 
 if __name__ == "__main__":
-    store = build_vector_store()
+    store = get_vector_store()
 
     print(
         f"Vector database created with "

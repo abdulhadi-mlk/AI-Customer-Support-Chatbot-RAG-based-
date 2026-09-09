@@ -13,12 +13,15 @@ pip install -r requirements.txt
 Copy-Item .env.example .env
 ```
 
-Add a Gemini API key to `.env`, then build the vector store and start the app:
+Add a Gemini API key to `.env`, then start the app:
 
 ```powershell
-python -m src.vector_store
 streamlit run app.py
 ```
+
+The app automatically creates `chroma_db/` from the committed files in
+`data/` on its first run, then reuses the persisted collection on later runs.
+No pre-generated Chroma database is required for Streamlit Cloud.
 
 The `.env` file must be in the project root (beside `app.py`) and contain:
 
